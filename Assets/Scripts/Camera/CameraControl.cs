@@ -2,16 +2,16 @@
 
 public class CameraControl : MonoBehaviour
 {
-    public float m_DampTime = 0.2f;                 
-    public float m_ScreenEdgeBuffer = 4f;           
-    public float m_MinSize = 6.5f;                  
-    [HideInInspector] public Transform[] m_Targets; 
+    public float m_DampTime = 0.2f; //aprox time to take the camera to move to a specific position                 
+    public float m_ScreenEdgeBuffer = 4f;   //number set to make sure the tanks that overflow off the camera screen          
+    public float m_MinSize = 6.5f; // minimmum size for the camera                  
+    /*[HideInInspector]*/ public Transform[] m_Targets; //camera targets
 
 
-    private Camera m_Camera;                        
-    private float m_ZoomSpeed;                      
-    private Vector3 m_MoveVelocity;                 
-    private Vector3 m_DesiredPosition;              
+    private Camera m_Camera;    //references the camera                        
+    private float m_ZoomSpeed;  //references the speed of the orthographic camera zoom                     
+    private Vector3 m_MoveVelocity; //references the velocity of the camera                
+    private Vector3 m_DesiredPosition;  //changes the camera position towards         
 
 
     private void Awake()
@@ -37,15 +37,15 @@ public class CameraControl : MonoBehaviour
 
     private void FindAveragePosition()
     {
-        Vector3 averagePos = new Vector3();
-        int numTargets = 0;
+        Vector3 averagePos = new Vector3(); //create empty vector3
+        int numTargets = 0; 
 
         for (int i = 0; i < m_Targets.Length; i++)
         {
-            if (!m_Targets[i].gameObject.activeSelf)
+            if (!m_Targets[i].gameObject.activeSelf) //if the tank is not active continues
                 continue;
 
-            averagePos += m_Targets[i].position;
+            averagePos += m_Targets[i].position; //change the avgPos to a new position and make that the avgPos
             numTargets++;
         }
 
@@ -54,11 +54,11 @@ public class CameraControl : MonoBehaviour
 
         averagePos.y = transform.position.y;
 
-        m_DesiredPosition = averagePos;
+        m_DesiredPosition = averagePos; //to make sure the avgPos doesnt surpass the DesiredPosition 
     }
 
 
-    private void Zoom()
+    private void Zoom() //finds the camera position to change the zoom too and transitate to it
     {
         float requiredSize = FindRequiredSize();
         m_Camera.orthographicSize = Mathf.SmoothDamp(m_Camera.orthographicSize, requiredSize, ref m_ZoomSpeed, m_DampTime);
@@ -87,7 +87,7 @@ public class CameraControl : MonoBehaviour
         
         size += m_ScreenEdgeBuffer;
 
-        size = Mathf.Max(size, m_MinSize);
+        size = Mathf.Max(size, m_MinSize); //assign the maximum size possible in a range that goes until the minimal size possible "0"
 
         return size;
     }
