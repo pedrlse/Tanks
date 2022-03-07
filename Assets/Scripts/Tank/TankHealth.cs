@@ -39,17 +39,35 @@ public class TankHealth : MonoBehaviour
         // Adjust the tank's current health, update the UI based on the new health and check whether or not the tank is dead.
         m_CurrentHealth -= amount; //reduces the health according to the ammount of damage
         SetHealthUI();
+        if (m_CurrentHealth <= 0f && !m_Dead)
+        {
+            OnDeath();
+        }
     }
 
-
+    /// <summary>
+	/// Changes the value and color of the slider according to the health lost
+	/// </summary>
     private void SetHealthUI()
     {
-        // Adjust the value and colour of the slider.
+        m_Slider.value = m_CurrentHealth;
+
+        m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
     }
 
-
+    /// <summary>
+    /// makes the tank innactive
+    /// </summary>
     private void OnDeath()
     {
         // Play the effects for the death of the tank and deactivate it.
+        m_Dead = true;
+
+        m_ExplosionParticles.transform.position = transform.position; //makes the explosion happen in the tank current position
+        m_ExplosionParticles.gameObject.SetActive(true);
+        m_ExplosionParticles.Play();
+        m_ExplosionAudio.Play();
+        gameObject.SetActive(false);
+
     }
 }
