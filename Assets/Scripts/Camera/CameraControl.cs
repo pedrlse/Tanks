@@ -52,7 +52,10 @@ public class CameraControl : MonoBehaviour
         }
 
         if (numTargets > 0)
+        {
             averagePos /= numTargets;
+        }
+            
 
         averagePos.y = transform.position.y;
 
@@ -76,7 +79,10 @@ public class CameraControl : MonoBehaviour
         for (int i = 0; i < m_Targets.Length; i++)
         {
             if (!m_Targets[i].gameObject.activeSelf)
+            {
                 continue;
+            }
+                
 
             Vector3 targetLocalPos = transform.InverseTransformPoint(m_Targets[i].position);
 
