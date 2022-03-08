@@ -7,7 +7,6 @@ public class CameraControl : MonoBehaviour
     public float m_MinSize = 6.5f;                  
     [HideInInspector] public Transform[] m_Targets; 
 
-
     private Camera m_Camera;                        
     private float m_ZoomSpeed;                      
     private Vector3 m_MoveVelocity;                 
