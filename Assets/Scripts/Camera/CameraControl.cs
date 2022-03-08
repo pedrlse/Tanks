@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 
 public class CameraControl : MonoBehaviour
-{
-    public float m_DampTime = 0.2f;                 
-    public float m_ScreenEdgeBuffer = 4f;           
-    public float m_MinSize = 6.5f;                  
-    [HideInInspector] public Transform[] m_Targets; 
-
+{                 
     private Camera m_Camera;                        
     private float m_ZoomSpeed;                      
     private Vector3 m_MoveVelocity;                 
-    private Vector3 m_DesiredPosition;              
+    private Vector3 m_DesiredPosition;
+    [SerializeField] private float m_DampTime = 0.2f;
 
+    public float m_ScreenEdgeBuffer = 4f;
+    public float m_MinSize = 6.5f;
+    [HideInInspector] public Transform[] m_Targets;
 
     private void Awake()
     {
