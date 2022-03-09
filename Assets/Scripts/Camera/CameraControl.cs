@@ -5,7 +5,7 @@ public class CameraControl : MonoBehaviour
     public float m_DampTime = 0.2f; //aprox time to take the camera to move to a specific position                 
     public float m_ScreenEdgeBuffer = 4f;   //number set to make sure the tanks that overflow off the camera screen          
     public float m_MinSize = 6.5f; // minimmum size for the camera                  
-    /*[HideInInspector]*/ public Transform[] m_Targets; //camera targets
+    [HideInInspector] public Transform[] m_Targets; //camera targets
 
 
     private Camera m_Camera;    //references the camera                        
