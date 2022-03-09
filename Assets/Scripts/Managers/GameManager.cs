@@ -76,26 +76,27 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(GameLoop());
         }
-*/    }
-
+    }
 
     private IEnumerator RoundStarting()
     {
+        ResetAllTanks();
+        DisableTankControl();
+        m_CameraControl.SetStartPositionAndSize();
+        m_RoundNumber++;
+        m_MessageText.text = "ROUND " + m_RoundNumber;
         yield return m_StartWait;
     }
-
 
     private IEnumerator RoundPlaying()
     {
         yield return null;
     }
 
-
     private IEnumerator RoundEnding()
     {
         yield return m_EndWait;
     }
-
 
     private bool OneTankLeft()
     {
