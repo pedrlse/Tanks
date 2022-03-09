@@ -54,7 +54,9 @@ public class TankManager
         m_CanvasGameObject.SetActive(true);
     }
 
-
+    /// <summary>
+    /// put the instance in the spawnpoint then it turns it off and back on next
+    /// </summary>
     public void Reset()
     {
         m_Instance.transform.position = m_SpawnPoint.position;
