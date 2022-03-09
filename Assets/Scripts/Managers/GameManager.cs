@@ -5,29 +5,27 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int m_NumRoundsToWin = 5;        
-    public float m_StartDelay = 3f;         
-    public float m_EndDelay = 3f;           
-    public CameraControl m_CameraControl;   
-    public Text m_MessageText;              
-    public GameObject m_TankPrefab;         
-    public TankManager[] m_Tanks;           
-
-
-    private int m_RoundNumber;              
-    private WaitForSeconds m_StartWait;     
-    private WaitForSeconds m_EndWait;       
-    private TankManager m_RoundWinner;
-    private TankManager m_GameWinner;       
-
-
     const float k_MaxDepenetrationVelocity = float.PositiveInfinity;
+
+    private int m_RoundNumber;
+    private WaitForSeconds m_StartWait;
+    private WaitForSeconds m_EndWait;
+    private TankManager m_RoundWinner;
+    private TankManager m_GameWinner;
+
+    public int m_NumRoundsToWin = 5;
+    public float m_StartDelay = 3f;
+    public float m_EndDelay = 3f;
+    public CameraControl m_CameraControl;
+    public Text m_MessageText;
+    public GameObject m_TankPrefab;
+    public TankManager[] m_Tanks;
 
     private void Start()
     {
         // This line fixes a change to the physics engine.
         Physics.defaultMaxDepenetrationVelocity = k_MaxDepenetrationVelocity;
-        
+
         m_StartWait = new WaitForSeconds(m_StartDelay);
         m_EndWait = new WaitForSeconds(m_EndDelay);
 
@@ -36,7 +34,6 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(GameLoop());
     }
-
 
     private void SpawnAllTanks()
     {
@@ -48,7 +45,6 @@ public class GameManager : MonoBehaviour
             m_Tanks[i].Setup();
         }
     }
-
 
     private void SetCameraTargets()
     {
@@ -96,7 +92,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        
+
     }
 
     private IEnumerator RoundEnding()
@@ -104,7 +100,7 @@ public class GameManager : MonoBehaviour
         DisableTankControl();
         m_RoundWinner = null;
         m_RoundWinner = GetRoundWinner();
-        if(m_RoundWinner != null)
+        if (m_RoundWinner != null)
         {
             m_RoundWinner.m_Wins++;
         }
@@ -138,7 +134,6 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-
     private TankManager GetGameWinner()
     {
         for (int i = 0; i < m_Tanks.Length; i++)
@@ -149,7 +144,6 @@ public class GameManager : MonoBehaviour
 
         return null;
     }
-
 
     private string EndMessage()
     {
@@ -179,7 +173,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void EnableTankControl()
     {
         for (int i = 0; i < m_Tanks.Length; i++)
@@ -187,7 +180,6 @@ public class GameManager : MonoBehaviour
             m_Tanks[i].EnableControl();
         }
     }
-
 
     private void DisableTankControl()
     {
