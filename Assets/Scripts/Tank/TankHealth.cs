@@ -32,7 +32,6 @@ public class TankHealth : MonoBehaviour
 
         SetHealthUI();
     }
-    
 
     public void TakeDamage(float amount)
     {
@@ -68,6 +67,5 @@ public class TankHealth : MonoBehaviour
         m_ExplosionParticles.Play();
         m_ExplosionAudio.Play();
         gameObject.SetActive(false);
-
     }
 }
