@@ -45,8 +45,8 @@ public class TankHealth : MonoBehaviour
     }
 
     /// <summary>
-	/// Changes the value and color of the slider according to the health lost
-	/// </summary>
+    /// Changes the value and color of the slider according to the health lost
+    /// </summary>
     private void SetHealthUI()
     {
         m_Slider.value = m_CurrentHealth;
