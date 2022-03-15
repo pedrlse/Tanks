@@ -2,21 +2,21 @@
 
 public class TankMovement : MonoBehaviour
 {
-    public int m_PlayerNumber = 1;  //defines which tank we are talking about        
-    public float m_Speed = 12f; //defines the movement speed of the tank           
-    public float m_TurnSpeed = 180f;    //defines how fast the tank can turn
-    public AudioSource m_MovementAudio; //plays the audio in the scene   
-    public AudioClip m_EngineIdling;    //gets the audio to be reporduced by the audisource
-    public AudioClip m_EngineDriving;    
-    public float m_PitchRange = 0.2f;   //changes the current pitch   
+    private string m_MovementAxisName;
+    private string m_TurnAxisName;
+    private Rigidbody m_Rigidbody;
+    private float m_MovementInputValue;
+    private float m_TurnInputValue;
+    private float m_OriginalPitch;
 
-    
-    private string m_MovementAxisName;     
-    private string m_TurnAxisName;         
-    private Rigidbody m_Rigidbody;         
-    private float m_MovementInputValue;    
-    private float m_TurnInputValue;        
-    private float m_OriginalPitch;         
+    [SerializeField] private float m_Speed = 12f; //defines the movement speed of the tank           
+    [SerializeField] private float m_TurnSpeed = 180f;    //defines how fast the tank can turn
+    [SerializeField] private AudioSource m_MovementAudio; //plays the audio in the scene   
+    [SerializeField] private AudioClip m_EngineIdling;    //gets the audio to be reporduced by the audisource
+    [SerializeField] private AudioClip m_EngineDriving;
+    [SerializeField] private float m_PitchRange = 0.2f;   //changes the current pitch    
+
+    public int m_PlayerNumber = 1;  //defines which tank we are talking about        
 
 
     private void Awake()
@@ -24,20 +24,17 @@ public class TankMovement : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
     }
 
-
-    private void OnEnable ()
+    private void OnEnable()
     {
         m_Rigidbody.isKinematic = false;
         m_MovementInputValue = 0f;
         m_TurnInputValue = 0f;
     }
 
-
-    private void OnDisable ()
+    private void OnDisable()
     {
         m_Rigidbody.isKinematic = true;
     }
-
 
     private void Start()
     {
@@ -46,7 +43,6 @@ public class TankMovement : MonoBehaviour
 
         m_OriginalPitch = m_MovementAudio.pitch;
     }
-    
 
     private void Update()
     {
@@ -56,18 +52,17 @@ public class TankMovement : MonoBehaviour
         EngineAudio();  //play the engineaudio function
     }
 
-
     private void EngineAudio()
     {
         // Play the correct audio clip based on whether or not the tank is moving and what audio is currently playing.
 
-        if(Mathf.Abs(m_MovementInputValue) < 0.1f && Mathf.Abs (m_TurnInputValue) < 0.1f)
+        if (Mathf.Abs(m_MovementInputValue) < 0.1f && Mathf.Abs(m_TurnInputValue) < 0.1f)
         {
-            if(m_MovementAudio.clip == m_EngineDriving)
+            if (m_MovementAudio.clip == m_EngineDriving)
             {
                 m_MovementAudio.clip = m_EngineIdling; //switch the clip the audioclip is playing
                 m_MovementAudio.pitch = Random.Range(m_OriginalPitch - m_PitchRange, m_OriginalPitch + m_PitchRange);   //set the pitch value to a random number between the values defined on each side of the comma
-                m_MovementAudio.Play (); //call the play function everytime the audio changes
+                m_MovementAudio.Play(); //call the play function everytime the audio changes
             }
         }
         else
@@ -81,14 +76,12 @@ public class TankMovement : MonoBehaviour
         }
     }
 
-
     private void FixedUpdate()
     {
         // Move and turn the tank.
         Move();
         Turn();
     }
-
 
     private void Move()
     {
@@ -98,7 +91,6 @@ public class TankMovement : MonoBehaviour
         m_Rigidbody.MovePosition(m_Rigidbody.position + movement);  //makes the tank move towards the direction of the movement
     }
 
-
     private void Turn()
     {
         // Adjust the rotation of the tank based on the player's input.
@@ -107,6 +99,5 @@ public class TankMovement : MonoBehaviour
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
 
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
-
     }
 }
