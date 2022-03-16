@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    const float k_MaxDepenetrationVelocity = float.PositiveInfinity;
+    private const float k_MaxDepenetrationVelocity = float.PositiveInfinity;
 
     private int m_RoundNumber;
     private WaitForSeconds m_StartWait;
