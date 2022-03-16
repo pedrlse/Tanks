@@ -38,7 +38,7 @@ public class CameraControl : MonoBehaviour
     private void FindAveragePosition()
     {
         Vector3 averagePos = new Vector3(); //create empty vector3
-        int numTargets = 0; 
+        int numTargets = 0;
 
         for (int i = 0; i < m_Targets.Length; i++)
         {
@@ -80,11 +80,11 @@ public class CameraControl : MonoBehaviour
 
             Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
 
-            size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));
+            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
 
-            size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.x) / m_Camera.aspect);
+            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / m_Camera.aspect);
         }
-        
+
         size += m_ScreenEdgeBuffer;
 
         size = Mathf.Max(size, m_MinSize); //assign the maximum size possible in a range that goes until the minimal size possible "0"
