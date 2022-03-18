@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class CameraControl : MonoBehaviour
-{                 
+{
     private Camera m_Camera; //references the camera                        
     private float m_ZoomSpeed; //references the speed of the orthographic camera zoom                     
     private Vector3 m_MoveVelocity; //references the velocity of the camera                 
@@ -10,7 +10,7 @@ public class CameraControl : MonoBehaviour
 
     public float m_ScreenEdgeBuffer = 4f; //number set to make sure the tanks that overflow off the camera screen
     public float m_MinSize = 6.5f; // minimmum size for the camera
-    /*[HideInInspector]*/ public Transform[] m_Targets; //camera targets
+    [HideInInspector] public Transform[] m_Targets; //camera targets
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class CameraControl : MonoBehaviour
             {
                 continue;
             }
-                
+
 
             averagePos += m_Targets[i].position; //change the avgPos to a new position and make that the avgPos
             numTargets++;
@@ -54,11 +54,11 @@ public class CameraControl : MonoBehaviour
         {
             averagePos /= numTargets;
         }
-            
+
 
         averagePos.y = transform.position.y;
 
-        m_DesiredPosition = averagePos; //to make sure the avgPos doesnt surpass the DesiredPosition 
+        m_DesiredPosition = averagePos; //to make sure the avgPos doesnt surpass the DesiredPosition
     }
 
 
@@ -81,17 +81,17 @@ public class CameraControl : MonoBehaviour
             {
                 continue;
             }
-                
+
 
             Vector3 targetLocalPos = transform.InverseTransformPoint(m_Targets[i].position);
 
             Vector3 desiredPosToTarget = targetLocalPos - desiredLocalPos;
 
-            size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.y));
+            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
 
-            size = Mathf.Max (size, Mathf.Abs (desiredPosToTarget.x) / m_Camera.aspect);
+            size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / m_Camera.aspect);
         }
-        
+
         size += m_ScreenEdgeBuffer;
 
         size = Mathf.Max(size, m_MinSize); //assign the maximum size possible in a range that goes until the minimal size possible "0"

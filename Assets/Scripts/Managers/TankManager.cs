@@ -4,15 +4,15 @@ using UnityEngine;
 [Serializable]
 public class TankManager
 {
-    public Color m_PlayerColor;            
-    public Transform m_SpawnPoint;         
-    [HideInInspector] public int m_PlayerNumber;             
+    public Color m_PlayerColor;
+    public Transform m_SpawnPoint;
+    [HideInInspector] public int m_PlayerNumber;
     [HideInInspector] public string m_ColoredPlayerText;
-    [HideInInspector] public GameObject m_Instance;          
-    [HideInInspector] public int m_Wins;                     
+    [HideInInspector] public GameObject m_Instance;
+    [HideInInspector] public int m_Wins;
 
 
-    private TankMovement m_Movement;       
+    private TankMovement m_Movement;
     private TankShooting m_Shooting;
     private GameObject m_CanvasGameObject;
 
@@ -54,7 +54,9 @@ public class TankManager
         m_CanvasGameObject.SetActive(true);
     }
 
-
+    /// <summary>
+    /// put the instance in the spawnpoint then it turns it off and back on next
+    /// </summary>
     public void Reset()
     {
         m_Instance.transform.position = m_SpawnPoint.position;

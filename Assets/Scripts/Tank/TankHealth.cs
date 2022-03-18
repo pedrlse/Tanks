@@ -6,15 +6,15 @@ public class TankHealth : MonoBehaviour
     public float m_StartingHealth = 100f;   //defines the value of the satrting health       
     public Slider m_Slider; //used to reference the slider created in the scene                        
     public Image m_FillImage;   //used to acess the image present inside the slider                    
-    public Color m_FullHealthColor = Color.green;  
-    public Color m_ZeroHealthColor = Color.red;    
+    public Color m_FullHealthColor = Color.green;
+    public Color m_ZeroHealthColor = Color.red;
     public GameObject m_ExplosionPrefab;
-    
-    
-    private AudioSource m_ExplosionAudio;          
-    private ParticleSystem m_ExplosionParticles;   
-    private float m_CurrentHealth;  
-    private bool m_Dead;            
+
+
+    private AudioSource m_ExplosionAudio;
+    private ParticleSystem m_ExplosionParticles;
+    private float m_CurrentHealth;
+    private bool m_Dead;
 
 
     private void Awake()
