@@ -2,15 +2,6 @@
 
 public class TankMovement : MonoBehaviour
 {
-    public int m_PlayerNumber = 1;  //defines which tank we are talking about        
-    public float m_Speed = 12f; //defines the movement speed of the tank           
-    public float m_TurnSpeed = 180f;    //defines how fast the tank can turn
-    public AudioSource m_MovementAudio; //plays the audio in the scene   
-    public AudioClip m_EngineIdling;    //gets the audio to be reporduced by the audisource
-    public AudioClip m_EngineDriving;
-    public float m_PitchRange = 0.2f;   //changes the current pitch   
-
-
     private string m_MovementAxisName;
     private string m_TurnAxisName;
     private Rigidbody m_Rigidbody;
@@ -18,12 +9,20 @@ public class TankMovement : MonoBehaviour
     private float m_TurnInputValue;
     private float m_OriginalPitch;
 
+    [SerializeField] private float m_Speed = 12f; //defines the movement speed of the tank           
+    [SerializeField] private float m_TurnSpeed = 180f;    //defines how fast the tank can turn
+    [SerializeField] private AudioSource m_MovementAudio; //plays the audio in the scene   
+    [SerializeField] private AudioClip m_EngineIdling;    //gets the audio to be reporduced by the audisource
+    [SerializeField] private AudioClip m_EngineDriving;
+    [SerializeField] private float m_PitchRange = 0.2f;   //changes the current pitch    
+
+    public int m_PlayerNumber = 1;  //defines which tank we are talking about        
+
 
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
     }
-
 
     private void OnEnable()
     {
@@ -32,12 +31,10 @@ public class TankMovement : MonoBehaviour
         m_TurnInputValue = 0f;
     }
 
-
     private void OnDisable()
     {
         m_Rigidbody.isKinematic = true;
     }
-
 
     private void Start()
     {
@@ -47,7 +44,6 @@ public class TankMovement : MonoBehaviour
         m_OriginalPitch = m_MovementAudio.pitch;
     }
 
-
     private void Update()
     {
         // Store the player's input and make sure the audio for the engine is playing.
@@ -55,7 +51,6 @@ public class TankMovement : MonoBehaviour
         m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
         EngineAudio();  //play the engineaudio function
     }
-
 
     private void EngineAudio()
     {
@@ -81,14 +76,12 @@ public class TankMovement : MonoBehaviour
         }
     }
 
-
     private void FixedUpdate()
     {
         // Move and turn the tank.
         Move();
         Turn();
     }
-
 
     private void Move()
     {
@@ -98,7 +91,6 @@ public class TankMovement : MonoBehaviour
         m_Rigidbody.MovePosition(m_Rigidbody.position + movement);  //makes the tank move towards the direction of the movement
     }
 
-
     private void Turn()
     {
         // Adjust the rotation of the tank based on the player's input.
@@ -107,6 +99,5 @@ public class TankMovement : MonoBehaviour
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
 
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
-
     }
 }
