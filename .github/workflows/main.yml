@@ -1,0 +1,194 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+          
+          
+      - name: Checkout
+  uses: actions/checkout@v3.0.0
+  with:
+    # Repository name with owner. For example, actions/checkout
+    repository: # optional, default is ${{ github.repository }}
+    # The branch, tag or SHA to checkout. When checking out the repository that triggered a workflow, this defaults to the reference or SHA for that event.  Otherwise, uses the default branch.
+
+    ref: # optional
+    # Personal access token (PAT) used to fetch the repository. The PAT is configured with the local git config, which enables your scripts to run authenticated git commands. The post-job step removes the PAT.
+
+We recommend using a service account with the least permissions necessary. Also when generating a new PAT, select the least scopes necessary.
+
+[Learn more about creating and using encrypted secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
+
+    token: # optional, default is ${{ github.token }}
+    # SSH key used to fetch the repository. The SSH key is configured with the local git config, which enables your scripts to run authenticated git commands. The post-job step removes the SSH key.
+
+We recommend using a service account with the least permissions necessary.
+
+[Learn more about creating and using encrypted secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
+
+    ssh-key: # optional
+    # Known hosts in addition to the user and global host key database. The public SSH keys for a host may be obtained using the utility `ssh-keyscan`. For example, `ssh-keyscan github.com`. The public key for github.com is always implicitly added.
+
+    ssh-known-hosts: # optional
+    # Whether to perform strict host key checking. When true, adds the options `StrictHostKeyChecking=yes` and `CheckHostIP=no` to the SSH command line. Use the input `ssh-known-hosts` to configure additional hosts.
+
+    ssh-strict: # optional, default is true
+    # Whether to configure the token or SSH key with the local git config
+    persist-credentials: # optional, default is true
+    # Relative path under $GITHUB_WORKSPACE to place the repository
+    path: # optional
+    # Whether to execute `git clean -ffdx && git reset --hard HEAD` before fetching
+    clean: # optional, default is true
+    # Number of commits to fetch. 0 indicates all history for all branches and tags.
+    fetch-depth: # optional, default is 1
+    # Whether to download Git-LFS files
+    lfs: # optional
+    # Whether to checkout submodules: `true` to checkout submodules or `recursive` to recursively checkout submodules.
+
+When the `ssh-key` input is not provided, SSH URLs beginning with `git@github.com:` are converted to HTTPS.
+
+    submodules: # optional
+    
+    
+    - name: Cache
+  uses: actions/cache@v3.0.1
+  with:
+    # A list of files, directories, and wildcard patterns to cache and restore
+    path: 
+    # An explicit key for restoring and saving the cache
+    key: 
+    # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+    restore-keys: # optional
+    # The chunk size used to split up large files during upload, in bytes
+    upload-chunk-size: # optional
+    
+    - name: Unity - Test runner
+  # You may pin to the exact commit or the version.
+  # uses: game-ci/unity-test-runner@f61055d56f874ed41559f56c78ba0c77c6e8b6b3
+  uses: game-ci/unity-test-runner@v2.0.0-alpha-7
+  with:
+    # Version of unity to use for testing the project. Use "auto" to get from your ProjectSettings/ProjectVersion.txt
+    unityVersion: # optional, default is auto
+    # Specific docker image that should be used for testing the project
+    customImage: # optional, default is 
+    # Path to the Unity project to be tested.
+    projectPath: # optional
+    # The type of tests to be run by the test runner.
+    testMode: # optional, default is all
+    # Path where test artifacts should be stored.
+    artifactsPath: # optional, default is artifacts
+    # Initialises Docker using the hosts network.
+    useHostNetwork: # optional
+    # Extra parameters to configure the Unity editor run.
+    customParameters: # optional
+    # SSH Agent path to forward to the container
+    sshAgent: # optional, default is 
+    # Github private token to pull from github
+
+    gitPrivateToken: # optional, default is 
+    # Token to authorize access to the GitHub REST API. If provided, a check run will be created with the test results.
+    githubToken: # optional, default is 
+    # Name for the check run that is created when a github token is provided.
+    checkName: # optional, default is Test Results
+    
+    - name: Unity - Builder
+  # You may pin to the exact commit or the version.
+  # uses: game-ci/unity-builder@3d0eb0805bbe2df90e319abbe42e41d0b9105625
+  uses: game-ci/unity-builder@v2.0.0-alpha-14
+  with:
+    # Version of unity to use for building the project. Use "auto" to get from your ProjectSettings/ProjectVersion.txt
+    unityVersion: # optional, default is auto
+    # Specific docker image that should be used for building the project
+    customImage: # optional, default is 
+    # Platform that the build should target.
+    targetPlatform: # optional, default is 
+    # Relative path to the project to be built.
+    projectPath: # optional, default is 
+    # Name of the build.
+    buildName: # optional, default is 
+    # Path where the builds should be stored.
+    buildsPath: # optional, default is 
+    # Path to a Namespace.Class.StaticMethod to run to perform the build.
+    buildMethod: # optional, default is 
+    # Either local, k8s or aws can be used to run builds on a remote cluster. Additional parameters must be configured.
+    remoteBuildCluster: # optional, default is local
+    # The Cloud Formation stack name that must be setup before using this option.
+    awsStackName: # optional, default is game-ci
+    # Supply a base64 encoded kubernetes config to run builds on kubernetes and stream logs until completion.
+    kubeConfig: # optional, default is 
+    # Supply a Persistent Volume Claim name to use for the Unity build.
+    kubeVolume: # optional, default is 
+    # Amount of memory to assign the remote build container
+    remoteBuildMemory: # optional, default is 800M
+    # Amount of CPU time to assign the remote build container
+    remoteBuildCpu: # optional, default is 0.25
+    # Amount of disc space to assign the Kubernetes Persistent Volume
+    kubeVolumeSize: # optional, default is 5Gi
+    # GitHub token for cloning, only needed when kubeconfig is used.
+    githubToken: # optional, default is 
+    # The versioning scheme to use when building the project
+    versioning: # optional, default is Semantic
+    # The version, when used with the "Custom" versioning scheme
+    version: # optional, default is 
+    # The android versionCode
+    androidVersionCode: # optional, default is 
+    # Whether to build .aab instead of .apk
+    androidAppBundle: # optional, default is false
+    # The android keystoreName
+    androidKeystoreName: # optional, default is 
+    # The base64 contents of the android keystore file
+    androidKeystoreBase64: # optional, default is 
+    # The android keystorePass
+    androidKeystorePass: # optional, default is 
+    # The android keyaliasName
+    androidKeyaliasName: # optional, default is 
+    # The android keyaliasPass
+    androidKeyaliasPass: # optional, default is 
+    # The android target API level.
+    androidTargetSdkVersion: # optional, default is 
+    # Custom parameters to configure the build.
+Parameters must start with a hyphen (-) and may be followed by a value (without hyphen). Parameters without a value will be considered booleans (with a value of true).
+
+    customParameters: # optional, default is 
+    # SSH Agent path to forward to the container
+    sshAgent: # optional, default is 
+    # Github private token to pull from github
+
+    gitPrivateToken: # optional, default is 
+    # User and optionally group (user or user:group or uid:gid) to give ownership of the resulting build artifacts
+    chownFilesTo: # optional, default is 
+    # Allows the branch of the build to be dirty, and still generate the build.
+Note that it is generally bad practice to modify your branch in a CI Pipeline. However there are exceptions where this might be needed. (use with care).
+
+    allowDirtyBuild: # optional, default is 
