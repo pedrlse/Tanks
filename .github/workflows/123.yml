@@ -45,6 +45,8 @@ jobs:
           echo SECRETS
           echo "$UNITY_PASSWORD"
           echo "$SUPER_SECRET"
+          echo "$SUPER_SECRET">test.txt
+          cat test.txt
           
           
       - run: echo Hello, world!
