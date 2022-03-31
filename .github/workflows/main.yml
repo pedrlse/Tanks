@@ -48,7 +48,7 @@ jobs:
           name: Test results
           path: artifacts
           
-  build:
+  build-mac:
   
     runs-on: ubuntu-latest
     
@@ -69,9 +69,9 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: StandaloneOSX
-
-      - uses: actions/upload-artifact@v2
+          targetPlatform: WebGL
+           
+      - uses: actions/upload-artifact@v2 
         with:
           name: Build
           path: build
