@@ -24,13 +24,11 @@ jobs:
     steps:
       - uses: actions/cache@v2
         with:
-          path: Library
-          key: Library-Tanks-TargetPlatform
+          path: path/to/your/project/Library
+          key: Library-MyProjectName-TargetPlatform
           restore-keys: |
-            Library-Tanks-
+            Library-MyProjectName-
             Library-
-
-    
     
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
