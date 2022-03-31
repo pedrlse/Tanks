@@ -35,42 +35,42 @@ jobs:
             Library-test-project-
             Library-
 
-      #- uses: game-ci/unity-test-runner@v2
-      #  env:
-      #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      #  with:
-      #    projectPath: ./
-      #    githubToken: ${{ secrets.GITHUB_TOKEN }}
+      - uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: ./
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
           
-     # - uses: game-ci/unity-builder@v2
-      #  env:
-       #   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        #  UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-         # UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-       # with:
-        #  targetPlatform: StandaloneOSX
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneOSX
           
-      #- uses: game-ci/unity-builder@v2
-       # env:
-        #  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-         # UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          #UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        #with:
-         # targetPlatform: StandaloneWindows
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneWindows
           
-      #- uses: game-ci/unity-builder@v2
-       # env:
-        #  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-         # UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-        #  UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-       # with:
-        #  targetPlatform: StandaloneOSX
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneOSX
           
 
-      #- uses: actions/upload-artifact@v2
-       # with:
-        #  name: Build
-         # path: build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
  
 
 
