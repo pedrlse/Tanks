@@ -30,7 +30,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: Library
-          key: Library-test-project-${{ -EditMode.targetPlatform }}
+          key: Library-test-project-${{ EditMode.targetPlatform }}
           restore-keys: |
             Library-test-project-
             Library-
