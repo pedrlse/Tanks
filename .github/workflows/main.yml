@@ -13,6 +13,8 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -27,48 +29,48 @@ jobs:
     
       - uses: actions/cache@v2
         with:
-          path: ./Library
-          key: Library
+          path: Library
+          key: Library-test-project-${{ -EditMode.targetPlatform }}
           restore-keys: |
-            Library-Tanks-
+            Library-test-project-
             Library-
 
-      - uses: game-ci/unity-test-runner@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          projectPath: ./
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+      #- uses: game-ci/unity-test-runner@v2
+      #  env:
+      #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      #  with:
+      #    projectPath: ./
+      #    githubToken: ${{ secrets.GITHUB_TOKEN }}
           
-      - uses: game-ci/unity-builder@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: StandaloneOSX
+     # - uses: game-ci/unity-builder@v2
+      #  env:
+       #   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        #  UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+         # UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+       # with:
+        #  targetPlatform: StandaloneOSX
           
-      - uses: game-ci/unity-builder@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: StandaloneWindows
+      #- uses: game-ci/unity-builder@v2
+       # env:
+        #  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+         # UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          #UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        #with:
+         # targetPlatform: StandaloneWindows
           
-      - uses: game-ci/unity-builder@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: StandaloneOSX
+      #- uses: game-ci/unity-builder@v2
+       # env:
+        #  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+         # UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+        #  UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+       # with:
+        #  targetPlatform: StandaloneOSX
           
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Build
-          path: build
+      #- uses: actions/upload-artifact@v2
+       # with:
+        #  name: Build
+         # path: build
  
 
 
