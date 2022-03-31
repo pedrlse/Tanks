@@ -70,10 +70,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: StandaloneWindows
-          
-      - run: >
-          chmod +x ./ artifacts     
+          targetPlatform: StandaloneWindows   
           
       - uses: actions/upload-artifact@v2 
         with:
