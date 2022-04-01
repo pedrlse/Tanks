@@ -27,7 +27,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-    
+
       - uses: actions/cache@v2
         with:
           path: Library
@@ -35,33 +35,24 @@ jobs:
           restore-keys: |
             Library-test-project-
             Library-
-
-      - uses: game-ci/unity-test-runner@v2
+      
+      - uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          projectPath: ./
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          
-      - uses: actions/upload-artifact@v2
-        if: always()
+          targetPlatform: StandaloneOSX  
+
+      - uses: actions/upload-artifact@v2 
         with:
-          name: Test results
-          path: artifacts
-          
-  build-mac:
-  
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v3
-          
+          name: Build
+          path: build
+
       - name: Download a single artifact
         uses: actions/download-artifact@v3
         with:
           name: Build
- 
-
 
           
        
