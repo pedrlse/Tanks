@@ -72,6 +72,7 @@ jobs:
           path: build
           
       - name: Upload to appcenter
+        uses: wzieba/AppCenter-Github-Action@v1
         with:
           appName: wzieba/Sample-App
           token: ${{secrets.APP_CENTER_TOKEN}}
