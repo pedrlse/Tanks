@@ -77,7 +77,7 @@ jobs:
           appName: wzieba/Tanks1
           token: ${{secrets.APP_CENTER_TOKEN}}
           group: Testers
-          file: /home/runner/work/Tanks/Tanks/build/StandaloneOSX/StandaloneOSX.app
+          file: StandaloneOSX.app
           notifyTesters: true
           debug: false
  
