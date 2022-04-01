@@ -77,7 +77,7 @@ jobs:
           appName: wzieba/Tanks1
           token: ${{secrets.APP_CENTER_TOKEN}}
           group: Testers
-          file: StandaloneOSX.app
+          file: ./
           notifyTesters: true
           debug: false
  
