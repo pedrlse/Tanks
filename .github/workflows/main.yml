@@ -74,7 +74,7 @@ jobs:
       - name: Upload to appcenter
         uses: wzieba/AppCenter-Github-Action@v1
         with:
-          appName: Tanks
+          appName: wzieba/Tanks1
           token: ${{secrets.APP_CENTER_TOKEN}}
           group: Testers
           file: /home/runner/work/Tanks/Tanks/build/StandaloneOSX/StandaloneOSX.app
