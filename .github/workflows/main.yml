@@ -72,7 +72,7 @@ jobs:
       - uses: actions/upload-artifact@v3 
         with:
           name: Build
-          path: build
+          path: my_files.tar
           
       #- name: Upload to appcenter
       #  uses: wzieba/AppCenter-Github-Action@v1
