@@ -37,7 +37,7 @@ jobs:
           projectPath: ./
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Test results
@@ -66,18 +66,21 @@ jobs:
         with:
           targetPlatform: StandaloneOSX  
 
-      - uses: actions/upload-artifact@v2 
+      - name: Tar files
+        run: tar -cvf my_files.tar ./
+        
+      - uses: actions/upload-artifact@v3 
         with:
           name: Build
           path: build
           
-      - name: Upload to appcenter
-        uses: wzieba/AppCenter-Github-Action@v1
-        with:
-          appName: wzieba/Tanks1
-          token: ${{secrets.APP_CENTER_TOKEN}}
-          group: Testers
-          file: /artifacts/Build.app
-          notifyTesters: true
-          debug: false
+      #- name: Upload to appcenter
+      #  uses: wzieba/AppCenter-Github-Action@v1
+      #  with:
+      #    appName: wzieba/Tanks1
+      #    token: ${{secrets.APP_CENTER_TOKEN}}
+      #    group: Testers
+      #    file: /artifacts/Build.app
+      #    notifyTesters: true
+      #    debug: false
  
