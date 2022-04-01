@@ -67,20 +67,20 @@ jobs:
           targetPlatform: StandaloneOSX  
 
       - name: Tar files
-        run: tar -cvf my_files.tar ./
+        run: tar -cvf my_files.tar ./build/StandaloneOSX/StandaloneOSX.app
         
       - uses: actions/upload-artifact@v3 
         with:
           name: Build
           path: my_files.tar
           
-      #- name: Upload to appcenter
-      #  uses: wzieba/AppCenter-Github-Action@v1
-      #  with:
-      #    appName: wzieba/Tanks1
-      #    token: ${{secrets.APP_CENTER_TOKEN}}
-      #    group: Testers
-      #    file: /artifacts/Build.app
-      #    notifyTesters: true
-      #    debug: false
+      - name: Upload to appcenter
+        uses: wzieba/AppCenter-Github-Action@v1
+        with:
+          appName: wzieba/Tanks1
+          token: ${{secrets.APP_CENTER_TOKEN}}
+          group: Testers
+          file: ./build/StandaloneOSX/StandaloneOSX.app
+          notifyTesters: true
+          debug: false
  
