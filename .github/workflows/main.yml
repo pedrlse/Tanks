@@ -1,7 +1,5 @@
 # This is a basic workflow to help you get started with Actions
-
 name: CI
-
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -9,10 +7,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -21,13 +17,39 @@ jobs:
   test:
     
     # The type of runner that the job will run on
-    runs-on: macOS-latest
-
+    runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+    
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-test-project
+          restore-keys: |
+            Library-test-project-
+            Library-
+      - uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: ./
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Test results
+          path: artifacts
+          
+  build-mac:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
       - uses: actions/cache@v2
         with:
           path: Library
@@ -48,11 +70,13 @@ jobs:
         with:
           name: Build
           path: build
-
-      - name: Download a single artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: Build
-
           
-       
+      - name: Upload to appcenter
+        with:
+          appName: wzieba/Sample-App
+          token: ${{secrets.APP_CENTER_TOKEN}}
+          group: Testers
+          file: Artifacts/StandaloneOSX/StandaloneOSX.app
+          notifyTesters: true
+          debug: false
+ 
