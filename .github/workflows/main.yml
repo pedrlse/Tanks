@@ -23,6 +23,58 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
      
+     
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-test-project
+          restore-keys: |
+            Library-test-project-
+            Library-
+      - uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: ./
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Test results
+          path: artifacts
+
+  build-mac:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-test-project
+          restore-keys: |
+            Library-test-project-
+            Library-
+      
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneOSX  
+
+      - name: Tar files
+        run: tar -cvf my_files.tar ./build/StandaloneOSX/StandaloneOSX.app
+
+      - uses: actions/upload-artifact@v3 
+        with:
+          name: Build
+          path: my_files.tar
+     
       - name: Upload to appcenter
         uses: wzieba/AppCenter-Github-Action@v1
         with:
